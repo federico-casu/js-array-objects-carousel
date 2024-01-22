@@ -21,10 +21,10 @@ Aggiungere il **ciclo infinito** del carosello. Ovvero se la miniatura attiva è
 BONUS 1: (OK)
 Aggiungere le thumbnails (sottoforma di miniatura) ed al click attivare l’immagine corrispondente.
 
-BONUS 2: 
+BONUS 2: (OK)
 Aggiungere funzionalità di autoplay: dopo un certo periodo di tempo (3 secondi) l’immagine attiva dovrà cambiare alla successiva.
 
-BONUS 3:
+BONUS 3: (OK)
 Aggiungere bottoni di start/stop e di inversione del meccanismo di autoplay.
 
 ---------------------------------------------------------------------- */
@@ -68,6 +68,9 @@ const arrowRight = document.querySelector('i.fa-circle-chevron-right');
 const imgTitleHtml = document.getElementById('imgTitle');
 const imgDescriptionHtml = document.getElementById('imgDescription');
 let allImagesHtml = document.getElementById('all-images').querySelectorAll('figure img');
+
+const startStopHtml = document.getElementById('start-stop');
+const reverseHtml = document.getElementById('reverse');
 
 // aggiungo a ciascun oggetto dell'array una nuova proprietà chiamata active
 arrayImmagini.forEach(element => element.active = 'false');
@@ -159,3 +162,35 @@ allImagesHtml.forEach(element => {
         element.style.opacity = '1';
     })
 });
+
+let clock = setInterval(goOn, 3000);
+const autoplay = {
+    'state': 'true',
+    'direction': 'on'
+};
+
+startStopHtml.addEventListener('click', () => {
+    if (autoplay.state === 'true') {
+        clearInterval(clock);
+        autoplay.state = 'false';    
+    } else {
+        if (autoplay.direction === 'on') {
+            clock = setInterval(goOn, 3000);
+        } else {
+            clock = setInterval(goBack, 3000);
+        }
+        autoplay.state = 'true';
+    }
+})
+
+reverseHtml.addEventListener('click', () => {
+    if (autoplay.direction === 'on'){
+        clearInterval(clock);
+        clock = setInterval(goBack, 3000);
+        autoplay.direction = 'back';
+    } else {
+        clearInterval(clock);
+        clock = setInterval(goOn, 3000);
+        autoplay.direction = 'on';
+    }
+})

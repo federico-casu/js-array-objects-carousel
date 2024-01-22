@@ -19,14 +19,17 @@ img {
 .container {
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    border: 3px solid red;
+    gap: 20px;
+
+    /* border: 3px solid red; */
 }
 
 .carosello {
-    border: 2px dashed blue;
+    /* border: 2px dashed blue; */
 
     width: 600px;
 }
@@ -94,7 +97,7 @@ img {
 }
 
 #all-images figure img{
-    border: 1px solid lime;
+    /* border: 1px solid lime; */
 
     opacity: 0.6;
 
