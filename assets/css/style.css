@@ -56,9 +56,36 @@ img {
     right: 20px;
 }
 
-.active {
-    display: block;
+#imgTitle,
+#imgDescription {
+    background-color: rgba(128, 128, 128, 0.7);
+    color: white;
+
+    position: absolute;
+    left: 1rem;
+
+    padding-inline: 0.5rem;
+
+    border: 1px solid white;
+    border-radius: 0.5rem;
+
+    max-width: 90%;
 }
 
+#imgTitle {
+    top: 10px;
+    left: 10px;
+
+    font-size: 3rem;
+}
+
+#imgDescription {
+    line-height: 24px;
+    font-size: 16px;
+    
+    bottom: 1rem;
+    
+    
+}
 
 
