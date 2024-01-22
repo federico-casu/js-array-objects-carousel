@@ -1,0 +1,64 @@
+/* CSS RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* FONT RESET */
+html {
+    font-family: sans-serif;
+}
+
+/* IMG RESET */
+img {
+    max-width: 100%;
+    display: block;
+}
+
+.container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 3px solid red;
+}
+
+.carosello {
+    border: 2px dashed blue;
+}
+
+.carosello .frame {
+    position: relative;
+}
+
+.fa-circle-chevron-left,
+.fa-circle-chevron-right {
+    position: absolute;
+
+    color: white;
+    opacity: 75%;
+    font-size: 170%;
+
+    transform: translateY(-50%);
+
+    cursor: pointer;
+}
+
+.fa-circle-chevron-left {
+    top: 50%;
+    left: 20px;
+}
+
+.fa-circle-chevron-right {
+    top: 50%;
+    right: 20px;
+}
+
+.active {
+    display: block;
+}
+
+
+
