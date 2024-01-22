@@ -18,10 +18,10 @@ Al click dell'utente sulle frecce verso sinistra o destra, l'immagine attiva div
 Milestone 2: (OK)
 Aggiungere il **ciclo infinito** del carosello. Ovvero se la miniatura attiva è la prima e l'utente clicca la freccia verso destra, la miniatura che deve attivarsi sarà l'ultima e viceversa per l'ultima miniatura se l'utente clicca la freccia verso sinistra.
 
-BONUS 1: 
+BONUS 1: (OK)
 Aggiungere le thumbnails (sottoforma di miniatura) ed al click attivare l’immagine corrispondente.
 
-BONUS 2:
+BONUS 2: 
 Aggiungere funzionalità di autoplay: dopo un certo periodo di tempo (3 secondi) l’immagine attiva dovrà cambiare alla successiva.
 
 BONUS 3:
@@ -67,6 +67,7 @@ const arrowLeft = document.querySelector('i.fa-circle-chevron-left');
 const arrowRight = document.querySelector('i.fa-circle-chevron-right');
 const imgTitleHtml = document.getElementById('imgTitle');
 const imgDescriptionHtml = document.getElementById('imgDescription');
+let allImagesHtml = document.getElementById('all-images').querySelectorAll('figure img');
 
 // aggiungo a ciascun oggetto dell'array una nuova proprietà chiamata active
 arrayImmagini.forEach(element => element.active = 'false');
@@ -77,40 +78,84 @@ const isActive = (element) => element.active === 'true';
 frameSubjectHtml.setAttribute('src', `${arrayImmagini[0].url}`);
 imgTitleHtml.innerText = `${arrayImmagini[0].title}`;
 imgDescriptionHtml.innerText = `${arrayImmagini[0].description}`;
+allImagesHtml[0].style.opacity = '1';
 
-arrowRight.addEventListener('click', () => {
+let y = 0;
+
+arrayImmagini.forEach(element => {
+    allImagesHtml[y].setAttribute('src', `${element.url}`);
+    y++;
+});
+
+
+
+function goOn() {
     const activeIndex = arrayImmagini.findIndex(isActive);
 
     if ( activeIndex === arrayImmagini.length-1) {
         arrayImmagini[activeIndex].active = 'false';
         arrayImmagini[0].active = 'true';
+        allImagesHtml[activeIndex].style.opacity = '0.6';
+        allImagesHtml[0].style.opacity = '1';
         frameSubjectHtml.setAttribute('src', `${arrayImmagini[0].url}`);
         imgTitleHtml.innerText = `${arrayImmagini[0].title}`;
         imgDescriptionHtml.innerText = `${arrayImmagini[0].description}`;
     } else {
         arrayImmagini[activeIndex].active = 'false';
         arrayImmagini[activeIndex+1].active = 'true';
+        allImagesHtml[activeIndex].style.opacity = '0.6';
+        allImagesHtml[activeIndex+1].style.opacity = '1';
         frameSubjectHtml.setAttribute('src', `${arrayImmagini[activeIndex+1].url}`);
         imgTitleHtml.innerText = `${arrayImmagini[activeIndex+1].title}`;
         imgDescriptionHtml.innerText = `${arrayImmagini[activeIndex+1].description}`; 
     }
-});
+}
 
-arrowLeft.addEventListener('click', () => {
+function goBack(){
     const activeIndex = arrayImmagini.findIndex(isActive);
 
     if ( activeIndex === 0) {
         arrayImmagini[activeIndex].active = 'false';
         arrayImmagini[arrayImmagini.length-1].active = 'true';
+        allImagesHtml[activeIndex].style.opacity = '0.6';
+        allImagesHtml[arrayImmagini.length-1].style.opacity = '1';
         frameSubjectHtml.setAttribute('src', `${arrayImmagini[arrayImmagini.length-1].url}`);
         imgTitleHtml.innerText = `${arrayImmagini[arrayImmagini.length-1].title}`;
         imgDescriptionHtml.innerText = `${arrayImmagini[arrayImmagini.length-1].description}`;
     } else {
         arrayImmagini[activeIndex].active = 'false';
         arrayImmagini[activeIndex-1].active = 'true';
+        allImagesHtml[activeIndex].style.opacity = '0.6';
+        allImagesHtml[activeIndex-1].style.opacity = '1';
         frameSubjectHtml.setAttribute('src', `${arrayImmagini[activeIndex-1].url}`);
         imgTitleHtml.innerText = `${arrayImmagini[activeIndex-1].title}`;
         imgDescriptionHtml.innerText = `${arrayImmagini[activeIndex-1].description}`; 
     }
-});
+}
 
+arrowRight.addEventListener('click', goOn);
+
+arrowLeft.addEventListener('click', goBack);
+
+console.log(allImagesHtml)
+
+allImagesHtml.forEach(element => {
+    const x = element.getAttribute('src');
+
+    element.addEventListener('click', () => {
+        const activeIndex = arrayImmagini.findIndex(isActive);
+
+        arrayImmagini[activeIndex].active = 'false';
+        arrayImmagini.forEach(element => {
+            if (element.url === x) {
+                element.active = 'true';
+                frameSubjectHtml.setAttribute('src', `${element.url}`);
+                imgTitleHtml.innerText = `${element.title}`;
+                imgDescriptionHtml.innerText = `${element.description}`;
+            }
+        });
+        //arrayImmagini[].active = 'true';
+        allImagesHtml[activeIndex].style.opacity = '0.6';
+        element.style.opacity = '1';
+    })
+});

@@ -27,6 +27,8 @@ img {
 
 .carosello {
     border: 2px dashed blue;
+
+    width: 600px;
 }
 
 .carosello .frame {
@@ -84,8 +86,21 @@ img {
     font-size: 16px;
     
     bottom: 1rem;
-    
-    
+}
+
+#all-images {
+    width: 100%;
+    display: flex;
+}
+
+#all-images figure img{
+    border: 1px solid lime;
+
+    opacity: 0.6;
+
+    flex-basis: calc(100% / 6);
+
+    cursor: pointer;
 }
 
 
